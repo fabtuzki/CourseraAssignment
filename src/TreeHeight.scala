@@ -30,16 +30,18 @@ object TreeHeight {
     var i = 0
     while (visited.length <= 10 && i <10) {
       i +=1
-      println("round check: " + i + "visited Length now: " + visited.mkString(","))
+      println("round check: " + i + " \n visited Length now: " + visited.mkString(","))
       var currentVertex = start
       //first check:
       var currentDepth = 1
       //tranverse the tree :
       while (g.exists(_._1==currentVertex) && !g(currentVertex).filterNot(visited.contains).isEmpty) {
         currentDepth +=1
-        //gán child vào current vertex và gắn current vertex vào visited và add vào stack nếu có nhiều hơn 1 child
+        //gán child vào current vertex và gắn current vertex vào visited và add node cha vào stack nếu có nhiều hơn 1 child
         visited.append(currentVertex)
-        g(currentVertex).foreach(x => stack.append(x))
+        if(g(currentVertex).filterNot(visited.contains).length >1 ){
+          stack.append(currentVertex)
+        }
         currentVertex = g(currentVertex)(0)
         println("tranverse inside tree : visited now " + visited.mkString(",")
           + "\n stack now : " + stack.mkString(",") + "\n currentDepth now : " + currentDepth
@@ -51,14 +53,16 @@ object TreeHeight {
       }
       //check nế
       visited --= stack
+      stack.clear
     }
 
     maxDepth
   }
 
+/*
   def DFS(start: Vertex, g: Graph): List[Vertex] = {
 
-    def DFS0(v: Vertex, visited: List[Vertex]): List[Vertex] = {
+    def DFS0(v: Vertex, visited: Set[Vertex]): List[Vertex] = {
       if (visited.contains(v)) {
         println("inside the first logic: vertex v is " + v + " and list visited is " + visited.mkString(","))
         visited
@@ -71,9 +75,10 @@ object TreeHeight {
       }
     }
 
-    DFS0(start, List()).reverse
+    DFS0(start, Set()).reverse
   }
 
+*/
   /*
     def unitTest(pathInput: String, pathResult: String): Boolean = {
       val listFileInput: Array[File] = new File(pathInput).listFiles().filter(x => (x.isFile && !x.getName.endsWith(".a")))
