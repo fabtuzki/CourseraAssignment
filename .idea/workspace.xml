@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="061c56d1-58a9-4184-b45c-6d3ec82f9f3e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight$$anonfun$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight$$anonfun$TreeHeight$$DFS0$1$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight$$anonfun$DFSTree$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight$$anonfun$DFSTree$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight$$anonfun$DFSTree$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight$$anonfun$DFSTree$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight$$anonfun$DFSTree$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight$$anonfun$DFSTree$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight$.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight$.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/firstAssignment/TreeHeight.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TreeHeight.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/TreeHeight.scala" afterDir="false" />
@@ -24,8 +25,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TreeHeight.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="41" column="24" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
+            <state relative-caret-position="262">
+              <caret line="88" column="39" lean-forward="true" selection-start-line="88" selection-start-column="39" selection-end-line="88" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BracketChecking.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="316">
+              <caret line="38" selection-start-line="11" selection-end-line="38" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -47,9 +60,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="456" />
+    <option name="x" value="455" />
     <option name="width" value="1470" />
-    <option name="height" value="1059" />
+    <option name="height" value="1060" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -59,16 +72,31 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="firstAssignment" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CourseraAssignment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="firstAssignment" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CourseraAssignment" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561633317333" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="Console" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -118,10 +146,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13539445" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13691275" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -130,7 +157,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.75503355" visible="true" weight="0.60771704" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.75503355" weight="0.08923513" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49932885" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -138,7 +165,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50067115" side_tool="true" weight="0.39943343" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4986577" weight="0.48866856" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.4986577" weight="0.5368272" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -161,8 +188,8 @@
     <entry file="jar://C:/Program Files (x86)/scala/lib/scala-library.jar!/scala/collection/mutable/ListBuffer.class" />
     <entry file="file://$PROJECT_DIR$/src/BracketChecking.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="37" column="3" selection-start-line="11" selection-end-line="37" selection-end-column="3" />
+        <state relative-caret-position="316">
+          <caret line="38" selection-start-line="11" selection-end-line="38" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
@@ -171,8 +198,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TreeHeight.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="41" column="24" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
+        <state relative-caret-position="262">
+          <caret line="88" column="39" lean-forward="true" selection-start-line="88" selection-start-column="39" selection-end-line="88" selection-end-column="39" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
