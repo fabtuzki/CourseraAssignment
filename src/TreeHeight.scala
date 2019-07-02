@@ -6,23 +6,27 @@ import scala.io.Source
 
 
 object TreeHeight {
-/*
-  type Graph = Map[Vertex, List[Vertex]]
-  type Vertex = Int
-  val g: Graph = Map(10 -> List(1), 5 -> List(3, 4), 2 -> List(5, 7, 10), 3 -> List(6), 7 -> List(8), 8 -> List(9))
-  val root: Vertex = 2
-*/
+  /*
+    type Graph = Map[Vertex, List[Vertex]]
+    type Vertex = Int
+    val g: Graph = Map(10 -> List(1), 5 -> List(3, 4), 2 -> List(5, 7, 10), 3 -> List(6), 7 -> List(8), 8 -> List(9))
+    val root: Vertex = 2
+  */
 
   def main(args: Array[String]) {
 
     //data input: array of data
 
-//        println(unitTest("C:\\Users\\Jade Phung\\Documents\\homework\\tree_height\\tests",
-//          "C:\\Users\\Jade Phung\\Documents\\homework\\tree_height\\tests"))
-val input = Source.fromFile("C:\\Users\\Jade Phung\\Documents\\homework\\tree_height\\tests\\17").getLines().toList(1).split(" ").map(_.toInt)
-val treee = makeTree(input)
-    println("root: " + treee._1)
-    treee._2.foreach(x => println( "value: " + x))
+            println(unitTest("C:\\Users\\Jade Phung\\Documents\\homework\\tree_height\\tests",
+              "C:\\Users\\Jade Phung\\Documents\\homework\\tree_height\\tests"))
+/*
+    val input = Source.fromFile("C:\\Users\\Jade Phung\\Documents\\homework\\tree_height\\tests\\16").getLines().toList(1).split(" ").map(_.toInt)
+    val treee = makeTree(input)
+    println("root " + treee._1)
+    println(treee._2)
+    DFSTree(treee._1, treee._2)
+*/
+
 
   }
 
@@ -31,14 +35,17 @@ val treee = makeTree(input)
     val listFileOutput = new File(pathInput).listFiles().filter(x => (x.isFile && x.getName.endsWith(".a")))
     var total = 0
     for (i <- 0 until listFileInput.length) {
+      println("running at input : " + (i+1))
+
       val fileInput = Source.fromFile(listFileInput(i)).getLines().toList
       val fileInput1 = fileInput(1).split(" ").map(_.toInt)
       val fileOutput = Source.fromFile(listFileOutput(i)).getLines.toList
-      val fileOutput1 = fileOutput(0)
+      val fileOutput1 = fileOutput(0).toInt
       val tree = makeTree(fileInput1)
+
       if (DFSTree(tree._1, tree._2) != fileOutput1) {
-        println("input : " + i )
-        println("error input: " + DFSTree(tree._1, tree._2))
+        println("input : " + i)
+        println("error output: " + DFSTree(tree._1, tree._2))
         println("output : " + fileOutput1)
         total += 1
       }
@@ -54,13 +61,13 @@ val treee = makeTree(input)
 
   }
 
-  def makeTree(input: Array[Int]): Tuple2[Int , HashMap[Int, List[Int]]] = {
+  def makeTree(input: Array[Int]): Tuple2[Int, HashMap[Int, List[Int]]] = {
     val tree = new HashMap[Int, List[Int]]
     var root = 0
     for (i <- 0 until input.length) {
-      if(input(i) == -1){
+      if (input(i) == -1) {
         root = i
-      }else{
+      } else {
         var value = tree.getOrElse(input(i), List(i))
         if (!value.contains(i)) {
           value = i :: value
@@ -77,35 +84,48 @@ val treee = makeTree(input)
   def DFSTree(start: Int, g: HashMap[Int, List[Int]]): Int = {
     val stack = new ListBuffer[Int]
     var maxDepth = 1
-    val visited = new ListBuffer[Int]
+    var visited = new ListBuffer[Int]
     var i = 0
-    while (g.keySet.size > 0 && visited.length < g.keySet.size && i <15) {
+    while (g.keySet.size > 0 && !g(start).filterNot(visited.contains).isEmpty && i <= 100  ) {
       i += 1
+/*
       println("round check: " + i + " \n visited Length now: " + visited.mkString(","))
+*/
       var currentVertex = start
       //first check:
       var currentDepth = 1
       //tranverse the tree :
-      while (g.exists(_._1 == currentVertex) && !g(currentVertex).filterNot(visited.contains).isEmpty ) {
+      while (g.exists(_._1 == currentVertex) && !g(currentVertex).filterNot(visited.contains).isEmpty) {
         currentDepth += 1
-        //gán child vào current vertex và gắn current vertex vào visited và add node cha vào stack nếu có nhiều hơn 1 child
+        stack.append(currentVertex)
         visited.append(currentVertex)
-        if (g(currentVertex).filterNot(visited.contains).length > 1) {
-          stack.append(currentVertex)
-        }
+
         currentVertex = g(currentVertex).filterNot(visited.contains)(0)
+/*
+        println("curent vertex update " + currentVertex)
+        println("condition 1 : " + !g.exists(_._1 == currentVertex))
+*/
+
+        if (!g.exists(_._1 == currentVertex) || g(currentVertex).filter(x => !visited.contains(x)).isEmpty) {
+          visited.append(currentVertex)
+        }
+/*
         println("tranverse inside tree : visited now " + visited.mkString(",")
           + "\n stack now : " + stack.mkString(",") + "\n currentDepth now : " + currentDepth
           + "\n currentVertext now: " + currentVertex)
-        visited.append(currentVertex)
 
+*/
       }
 
       if (currentDepth > maxDepth) {
         maxDepth = currentDepth
       }
       //check nế
-      visited --= stack
+      visited = visited.distinct -- stack.distinct
+/*
+      println("visited after remove stack: " + visited.mkString(","))
+*/
+
       stack.clear
     }
 
