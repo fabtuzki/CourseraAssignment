@@ -1,124 +1,119 @@
+import java.io.File
+
 import scala.collection.mutable
 import scala.io.Source
 
 object NetworkPacketProcessingSimulation {
 
   def main(args: Array[String]) {
-
     /*
-    println(makeStream("C:\\Users\\Jade Phung\\Documents\\homework\\network_packet_processing_simulation\\tests\\16")._1)
-        makeStream("C:\\Users\\Jade Phung\\Documents\\homework\\network_packet_processing_simulation\\tests\\16")._2.foreach(x => println(x))
+        val link = makeStream("C:\\Users\\Jade Phung\\Documents\\homework\\network_packet_processing_simulation\\tests\\20")
+        println("buffer size: " + link._1 + " queue size : " + link._2.length)
+        networkWhatever(link._1, link._2)
     */
+
+    println(unitTest("C:\\Users\\Jade Phung\\Documents\\homework\\network_packet_processing_simulation\\tests"))
+
 
   }
 
 
-  def makeStream(input: String): Tuple2[Int, List[Int]] = {
+  def unitTest(path: String): Boolean = {
+
+    val listFileInput: Array[File] = new File(path).listFiles().filter(x => (x.isFile && !x.getName.endsWith(".a")))
+    val listFileOutput = new File(path).listFiles().filter(x => (x.isFile && x.getName.endsWith(".a")))
+
+    var total = 0
+    for (m <- 0 until listFileInput.length) {
+      val input = makeStream(listFileInput(m))
+      val output = Source.fromFile(listFileOutput(m)).getLines().toList.map(_.toInt)
+      println("currently at file test no: " + listFileInput(m))
+      val outputNetwork = networkWhatever(input._1, input._2)
+      if (output != outputNetwork) {
+        println("input list : " + input._2.mkString(",") + "buffer size: " + input._1)
+        println("error output : " + outputNetwork.mkString(","))
+        println("correct output : " + output.mkString(","))
+        total += 1
+      }
+
+    }
+
+    if (total == 0) {
+      true
+    } else {
+      false
+    }
+
+
+  }
+
+
+  def makeStream(input: File): Tuple2[Int, mutable.Queue[(Int, Int, Int)]] = {
     val load = Source.fromFile(input).getLines().toList
 
     val bufferSize = load(0).split(" ")(0)
-    val listPackage = load.drop(1).map(_.split(" ").map(_.toInt)).flatMap(x => x)
+    val listPackage = load.drop(1).zipWithIndex.map(x => (x._2, x._1.split(" ")(0).toInt, x._1.split(" ")(1).toInt))
+    val queuePackage = mutable.Queue(listPackage: _*)
 
-    (bufferSize.toInt, listPackage)
+
+    println("finish makeStream")
+    (bufferSize.toInt, queuePackage)
 
   }
 
-  def networkWhatever(bufferSize: Int, packageInput: List[Int]): List[Int] = {
-    var outputTime = 0 until packageInput.length / 2 toList
-    if (outputTime.length == 0) {
-      //check if there is any element
-
-      outputTime = null
-
-    } else if (bufferSize == 0) {
-      outputTime = List.fill(packageInput.length / 2 - 1)(-1)
-
-
-    } else if (bufferSize == packageInput.length / 2) {
-      //Trường hợp length package gửi đến <= buffersize
-      outputTime = List.fill(packageInput.length / 2 - 1)(null)
-
-      var currentTime = packageInput(0)
-      for (j <- 0 until packageInput.length / 2) {
-
-        //if the time start of the second package is less than processing time of the previous node then
-        //just add currenttime with processing time of the second package, but if it arrives later then
-        //just have to make the time processing second node the arrival time of the second package
-        outputTime = outputTime.updated(j, currentTime)
-
-        if (packageInput((j + 1) * 2) <= currentTime + packageInput(j * 2 + 1)) {
-          currentTime = currentTime + packageInput(j * 2 + 1)
-        } else {
-          currentTime = packageInput(j * 2)
-        }
-
-      }
-
-    } else {
-      //Trường hợp length của package gửi đến > buffersize
+  def networkWhatever(bufferSize: Int, packageInput: mutable.Queue[(Int, Int, Int)]): List[Int] = {
+    var outputTime = List.fill(packageInput.length)(-1)
+    if (outputTime.nonEmpty && bufferSize > 0) {
+      //Trường hợp length của package gửi đến >= buffersize
       //Restructure data
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-      //Tạo buffer là 2 cái queue, một queue có thời gian arrive một queue có thời gian xử lý
-      val arriveTime = new mutable.Queue[Int]
-      val processTime = new mutable.Queue[Int]
-      //initialize buffer :
-      for (i <- 0 until bufferSize) {
-        arriveTime.enqueue(packageInput(i * 2))
-        processTime.enqueue(packageInput(i * 2 + 1))
+      val buffer = new mutable.Queue[(Int, Int, Int)]
+      //Cấu trúc mới: queue của một tuple33
+      val packageSent = packageInput
+      //add the first buffer:
+      for (j <- 0 until bufferSize) {
+        buffer.enqueue(packageSent.dequeue)
       }
+      //setup start/finish processing time + first output time
+      var startProcessingTime = 0
+      var finishProcessingTime = 0
 
-      //So Sánh time đến của cái ngoài cùng và thời gian xử lý xong cái đàu tiên:
 
-      var processingTime = 0
-      var pointerBuffer = bufferSize
-      //initialize outputTime as list of null
-      outputTime = List.fill(packageInput.length / 2 - 1)(null)
+      //loop through the ???
+      while (!packageSent.isEmpty) {
+        //first add in the start & finish processing time
+        if (finishProcessingTime >= buffer.front._2) {
+          startProcessingTime = finishProcessingTime
+          finishProcessingTime = startProcessingTime + buffer.front._3
+        } else {
+          startProcessingTime = buffer.front._2
+          finishProcessingTime = startProcessingTime + buffer.front._3
+        }
+        //then update the outputTime at this position
+        outputTime = outputTime.updated(buffer.front._1, startProcessingTime)
 
-      //initialize first processingtime
+        //then check the queue of package sent
+        while (!packageSent.isEmpty && finishProcessingTime > packageSent.front._2) {
+          packageSent.dequeue
+        }
+        buffer.dequeue()
 
-      while ()
-      processingTime += packageInput(0) + packageInput(1)
-      //Check the incoming package if it has chance to be pop inside the buffer
-      if (packageInput(pointerBuffer * 2) >= processingTime) {
-        //pop the first package and add the last package
-        arriveTime.dequeue()
-        processTime.dequeue()
-        arriveTime.enqueue(packageInput(pointerBuffer * 2))
-        arriveTime.enqueue(packageInput(pointerBuffer * 2 + 1))
-      } else {
-        //In case it arrives too early, we will update the outputTime at pointerBuffer and move the pointerBuffer
-        //one more step further
-        outputTime = outputTime.updated(pointerBuffer, -1)
-        pointerBuffer += 1
+        if (!packageSent.isEmpty) {
+          //enqueue package first sent from package list
+          buffer.enqueue(packageSent.dequeue())
+        }
       }
-      //then also update the outputTime for the first node:
-      outputTime = outputTime.updated(0, packageInput(0))
-
-      //then update the processingTime for the second node
-
-      if (processingTime >= packageInput(2)) {
-        processingTime += packageInput(3)
-      } else {
-        processingTime = packageInput(2) + packageInput(3)
+      while (!buffer.isEmpty) {
+        //Trong trường hợp packageSent đã empty thì
+        if (finishProcessingTime >= buffer.front._2) {
+          startProcessingTime = finishProcessingTime
+          finishProcessingTime = startProcessingTime + buffer.front._3
+        } else {
+          startProcessingTime = buffer.front._2
+          finishProcessingTime = startProcessingTime + buffer.front._3
+        }
+        outputTime = outputTime.updated(buffer.front._1, startProcessingTime)
+        buffer.dequeue()
       }
-
-
-
-
-      //Check nếu dữ liệu incoming của package arrival time
-*/
 
 
     }
