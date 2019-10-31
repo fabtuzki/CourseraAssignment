@@ -15,7 +15,8 @@ object TreeHeight {
                 println(unitTest("C:\\Users\\Jade Phung\\Documents\\homework\\tree_height\\tests",
                   "C:\\Users\\Jade Phung\\Documents\\homework\\tree_height\\tests"))
     */
-    val input = Source.fromFile("C:\\Users\\Jade Phung\\Documents\\homework\\tree_height\\tests\\16").getLines().toList(1).split(" ").map(_.toInt)
+    val input = Source.fromFile("C:\\Users\\Jade Phung\\Documents\\homework\\tree_height\\tests\\24").getLines().toList(1).split(" ").map(_.toInt)
+/*
     val treee = makeTree(input)
     println("root " + treee._1)
     println(treee._2)
@@ -23,9 +24,24 @@ object TreeHeight {
     println("maxdepth by new tree " + DFSNew(treee._1, treee._2))
     val t1 = System.currentTimeMillis()
     println((t1 - t0)/1000)
+*/
+    var maxHeight = 0
+    for(child <- 0 until input.length ) {
+      var cusor = child
+      var tmpHeight = 0
+      while(input(cusor) != -1) {
+        tmpHeight += 1
+        cusor = input(cusor)
+      }
+      tmpHeight +=1
+      maxHeight = Math.max(maxHeight, tmpHeight)
+    }
 
-
+    println("Max height = " + maxHeight)
   }
+
+
+
 
   def unitTest(pathInput: String, pathResult: String): Boolean = {
     val listFileInput: Array[File] = new File(pathInput).listFiles().filter(x => (x.isFile && !x.getName.endsWith(".a")))

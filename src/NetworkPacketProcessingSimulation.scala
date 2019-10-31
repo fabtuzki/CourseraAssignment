@@ -6,11 +6,11 @@ import scala.io.Source
 object NetworkPacketProcessingSimulation {
 
   def main(args: Array[String]) {
-    /*
+/*
         val link = makeStream("C:\\Users\\Jade Phung\\Documents\\homework\\network_packet_processing_simulation\\tests\\20")
         println("buffer size: " + link._1 + " queue size : " + link._2.length)
         networkWhatever(link._1, link._2)
-    */
+*/
 
     println(unitTest("C:\\Users\\Jade Phung\\Documents\\homework\\network_packet_processing_simulation\\tests"))
 
